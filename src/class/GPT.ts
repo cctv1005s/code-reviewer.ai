@@ -282,6 +282,7 @@ export class GPT extends EventEmitter {
    * @param messages
    */
   async send(uniqKey: string, messages: string[]) {
+    await this.getApiType();
     // set uniq id
     this.runningInstance[uniqKey] = new Date().toString();
 
