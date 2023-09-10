@@ -1,0 +1,19 @@
+{
+  "Setting": "设置",
+  "Rerun": "重跑",
+  "No api key, click here to set it up.": "没有 API 密钥，请点击此处进行设置。",
+  "An error occurred": "发生了错误",
+  "processing...": "处理中...",
+  "Settings": "设置",
+  "API key is required!": "API 密钥是必需的！",
+  "Save successfully!": "保存成功！",
+  "Provider": "提供商",
+  "Rule": "自定义规则",
+  "Enter your custom rule here": "在此输入您的自定义规则",
+  "Api key": "API 密钥",
+  "Endpoint(optional)": "URL（非必填）",
+  "Save": "保存",
+  "Chinese": "中文",
+  "Currently using": "当前使用",
+  "for code review": "进行Code Review"
+}
