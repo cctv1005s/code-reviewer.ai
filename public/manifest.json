@@ -28,7 +28,7 @@
   "host_permissions": [
     "https://*.githubusercontent.com/",
     "https://gitlab.com/",
-    "https://api.dify.ai"
+    "https://api.dify.ai/"
   ],
   "optional_host_permissions": ["https://*/*"]
 }

@@ -14,6 +14,7 @@ import {
 
 export const CHATGPT_KEY = 'chatgpt_key';
 export const DIFY_KEY = 'dify_key';
+const API_TYPE_KEY = 'api_type_key';
 const DIFY_ENDPOINT = 'https://api.dify.ai/v1/chat-messages';
 
 export enum APIType {
@@ -45,32 +46,21 @@ export class GPT extends EventEmitter {
    */
   async setApiType(apiType: APIType) {
     this.apiType = apiType;
-    await storageInstance.set(this.getApiTypeStorageKey(), apiType);
+    await storageInstance.set(API_TYPE_KEY, apiType);
   }
 
   /**
    * Get api type
    */
   async getApiType(): Promise<APIType> {
-    const apiType = await storageInstance.get(this.getApiTypeStorageKey());
+    const apiType = await storageInstance.get(API_TYPE_KEY);
 
     if (!apiType) {
       return this.apiType;
     }
 
+    this.apiType = apiType as APIType;
     return apiType as APIType;
-  }
-
-  /**
-   * Get storage key of api type
-   * @private
-   */
-  private getApiTypeStorageKey(): string {
-    if (this.apiType === APIType.ChatGPT) {
-      return CHATGPT_KEY + '_api_type';
-    }
-
-    return DIFY_KEY + '_api_type';
   }
 
   /**
@@ -101,6 +91,7 @@ export class GPT extends EventEmitter {
    * Get proxy url
    */
   async getProxyUrl(): Promise<string> {
+    await this.getApiType();
     return storageInstance.get<string>(this.getProxyUrlStorageKey());
   }
 
@@ -109,6 +100,7 @@ export class GPT extends EventEmitter {
    * @param proxyUrl
    */
   async setProxyUrl(proxyUrl: string) {
+    await this.getApiType();
     return storageInstance.set(this.getProxyUrlStorageKey(), proxyUrl);
   }
 
@@ -116,6 +108,7 @@ export class GPT extends EventEmitter {
    * Get API type
    */
   async getApiKey(): Promise<string> {
+    await this.getApiType();
     return storageInstance.get<string>(this.getApiKeyStorageKey());
   }
 
@@ -124,6 +117,7 @@ export class GPT extends EventEmitter {
    * @param apiKey
    */
   async setApiKey(apiKey: string) {
+    await this.getApiType();
     return storageInstance.set(this.getApiKeyStorageKey(), apiKey);
   }
 
