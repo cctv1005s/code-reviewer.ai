@@ -69,6 +69,7 @@ export class Prompt {
     const promptArray = [];
     const diff = context.diff.replace(REGEXP, '');
     const patchParts = [];
+    let warning = '';
 
     // Separate the patch in different pieces to give ChatGPT more context.
     // Additionally, truncate the part of the patch if it is too big for ChatGPT to handle.
@@ -140,6 +141,7 @@ ${context.description}`);
       let patchPart = patchPartArray.join('\n');
       if (patchPart.length >= 15384) {
         patchPart = patchPart.slice(0, 15384);
+        // TODO: throw it to frontend
         warning =
           'Some parts of your patch were truncated as it was larger than 4096 tokens or 15384 characters. The review might not be as complete.';
       }

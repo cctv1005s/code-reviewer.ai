@@ -42,7 +42,7 @@ export const Popup = () => {
               style={{ height: '2.5rem' }}
               className="pt-2"
             />
-            <div className="text-base">CodeReviewer.ai</div>
+            <div className="text-base ml-2">CodeReviewer.ai</div>
           </div>
           <div className="flex justify-between items-center">
             <Button variant="link" onClick={gotoSetting}>

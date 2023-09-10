@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { useAsyncEffect } from '@/hooks/useAsyncEffect';
 
 export const LanguageToggle = () => {
-  const { i18n, t } = useTranslation();
+  const { i18n } = useTranslation();
 
   /**
    * Initialize i18n
@@ -52,7 +52,7 @@ export const LanguageToggle = () => {
         {Object.values(Language).map((language) => {
           return (
             <DropdownMenuItem onClick={() => setLanguage(language as Language)}>
-              {t(language)}
+              {language}
             </DropdownMenuItem>
           );
         })}
