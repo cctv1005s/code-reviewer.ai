@@ -29,7 +29,7 @@ export class Prompt {
 
   async getLanguage(): Promise<Language> {
     return (
-      (await storageInstance.get(LANGUAGE_STORAGE_KEY)) || Language.Chinese
+      (await storageInstance.get(LANGUAGE_STORAGE_KEY)) || Language.English
     );
   }
 
