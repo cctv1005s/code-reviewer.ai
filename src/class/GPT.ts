@@ -5,7 +5,7 @@ import { CommonRenderer } from '@/class/Renderer';
 
 import { promptInstance } from './Prompt';
 import { storageInstance } from './Storage';
-import { fetchSSE } from '@/lib/fetch-sse';
+import { fetchSSE } from '@/lib/fetchSSE';
 import {
   DifyRequestBody,
   DifyResponseMessage,
