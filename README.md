@@ -1,27 +1,46 @@
-# React + TypeScript + Vite
+<p align="center">
+  <img width="180" src="./docs/logo.png" alt="logo">
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <a href="./README.zh.md">📦 中文文档</a> • 
+  <a href="#usage">💻 Usage</a> • 
+  <a href="#installation">🔧 Installation</a>
+</p>
 
-Currently, two official plugins are available:
+# CodeReviewer.ai
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+> A Chrome extension which reviews Pull Requests using [ChatGPT](https://chat.openai.com/) or [Dify](https://dify.ai/)
 
-## Expanding the ESLint configuration
+- 💡 ChatGPT or [Dify](https://dify.ai/)
+- ⚡️ Support multiple languages
+- 🛠️ Configurable rules
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<img src="./docs/banner.png" alt="banner">
+<img src="./docs/preview.jpg" alt="preview">
 
-- Configure the top-level `parserOptions` property like this:
+## Usage
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+- Navigate to a GitHub Pull Request or GitLab Merge Request that you want a review for.
+- Click the extension icon
+- You get code review comments from ChatGPT in the popup window
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## Installation
+
+### From the Chrome Web Store
+
+😶‍🌫️publishing
+
+### From source
+
+- Clone this repository
+- Install the dependencies `yarn install`
+- Run the build script `yarn build`
+- Navigate to `chrome://extensions`
+- Enable Developer Mode
+- Click the 'Load unpacked' button and navigate to the `build` directory in the project
+
+## Inspired by
+- https://github.com/sturdy-dev/codereview.gpt
+- https://github.com/anc95/ChatGPT-CodeReview
