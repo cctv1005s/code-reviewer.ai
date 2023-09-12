@@ -1,4 +1,4 @@
-# Privacy Policy for codereview.gpt
+# Privacy Policy for CodeReviewer.ai
 
 No data or personal information is collected by this Chrome extensions(CodeReviewer.ai).
 
