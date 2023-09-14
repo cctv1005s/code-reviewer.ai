@@ -3,7 +3,7 @@ import IconImg from '/public/icons/icon_128.png';
 import { ThemeProvider } from '../theme/theme-provider';
 import { ModeToggle } from '../theme/mode-toggle';
 import { useApiKey } from '@/components/popup/hooks/useApiKey';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Setting } from '@/components/setting/Setting';
 import { useReview } from '@/components/popup/hooks/useReview';
 import { ReviewProcessStatus } from '@/class/GPT';
@@ -18,7 +18,7 @@ enum Pages {
 }
 
 export const Popup = () => {
-  const apiKey = useApiKey();
+  const [apiKey, getApiKey] = useApiKey();
   const [activeTab, setActiveTab] = useState<Pages>(Pages.Popup);
   const { title, url, msg, run, isSending } = useReview();
   const { t } = useTranslation();
@@ -26,6 +26,11 @@ export const Popup = () => {
   const gotoSetting = useCallback(() => {
     setActiveTab(Pages.Setting);
   }, []);
+
+
+  useEffect(() => {
+    getApiKey();
+  }, [activeTab]);
 
   if (activeTab === Pages.Setting) {
     return <Setting onGoBack={() => setActiveTab(Pages.Popup)} />;

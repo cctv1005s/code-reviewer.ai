@@ -1,5 +1,5 @@
 import { useAsyncEffect } from '@/hooks/useAsyncEffect';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 /**
  * Async version of useEffect
@@ -9,11 +9,18 @@ import { useState } from 'react';
 export const usePromise = <T extends any[], R extends unknown>(
   fn: (...params: ((undefined & undefined[]) | T)[]) => Promise<R>,
   params?: T,
-): R | undefined => {
+): [R | undefined, () => Promise<void>] => {
   const [value, setValue] = useState<R | undefined>(undefined);
   useAsyncEffect(async () => {
     setValue(await fn(...(params || [])));
   }, []);
 
-  return value;
+  const run = useCallback(async () => {
+    setValue(await fn(...(params || [])));
+  }, []);
+
+  return [
+    value,
+    run
+  ];
 };

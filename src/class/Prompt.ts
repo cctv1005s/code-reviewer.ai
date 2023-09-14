@@ -55,7 +55,7 @@ export class Prompt {
    * Get the system prompt
    */
   async getSystemPrompt() {
-    return `You are a programming code change reviewer, provide feedback on the code changes given. Do not introduce yourselves.`;
+    return `You are a strongly strict programming code change reviewer, provide feedback on the code changes given. Do not introduce yourselves.`;
   }
 
   getCustomRulesPrompt() {
