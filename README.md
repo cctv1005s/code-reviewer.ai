@@ -30,7 +30,7 @@
 
 ### From the Chrome Web Store
 
-😶‍🌫️publishing
+[Link](https://chrome.google.com/webstore/detail/codereviewerai/miecffdapffnoalnjidkmdnoekkcenfn?hl=zh-CN&authuser=0)
 
 ### From source
 

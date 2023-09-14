@@ -23,9 +23,9 @@
 
 ## 安装方法
 
-### 从 Chrome Web Store 安装
+### 从 Chrome Web Store 安装 (需科学上网)
 
-😶‍🌫️发布中
+[链接](https://chrome.google.com/webstore/detail/codereviewerai/miecffdapffnoalnjidkmdnoekkcenfn?hl=zh-CN&authuser=0)
 
 ### 从源代码安装
 
