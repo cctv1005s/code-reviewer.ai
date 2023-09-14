@@ -22,3 +22,5 @@ i18n
       escapeValue: false, // react already safes from xss
     },
   });
+
+export const i18next = i18n;

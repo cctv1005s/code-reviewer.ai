@@ -15,5 +15,7 @@
   "Save": "保存",
   "Chinese": "中文",
   "Currently using": "当前使用",
-  "for code review": "进行Code Review"
+  "for code review": "进行Code Review",
+  "Unknown page, only GitHub(pr) and GitLab(mr) are supported.": "不支持该网页，只支持Github或者Gitlab的PR/MR页面",
+  "Get page info failed": "获取网页信息失败"
 }

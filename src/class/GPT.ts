@@ -132,6 +132,10 @@ export class GPT extends EventEmitter {
     const options: ChatGPTAPIOptions = {
       apiKey: await this.getApiKey(),
       systemMessage: await promptInstance.getSystemPrompt(),
+      completionParams: {
+        temperature: 1,
+        top_p: 1,
+      },
     };
 
     if (await this.getProxyUrl()) {

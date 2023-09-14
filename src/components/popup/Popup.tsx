@@ -20,7 +20,7 @@ enum Pages {
 export const Popup = () => {
   const apiKey = useApiKey();
   const [activeTab, setActiveTab] = useState<Pages>(Pages.Popup);
-  const { title, url, msg, run } = useReview();
+  const { title, url, msg, run, isSending } = useReview();
   const { t } = useTranslation();
 
   const gotoSetting = useCallback(() => {
@@ -48,7 +48,7 @@ export const Popup = () => {
             <Button variant="link" onClick={gotoSetting}>
               {t('Setting')}
             </Button>
-            <Button size="sm" onClick={() => run()}>
+            <Button disabled={isSending} size="sm" onClick={() => run()}>
               {t('Rerun')}
             </Button>
             <LanguageToggle />

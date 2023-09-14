@@ -79,7 +79,7 @@ export const Provider = () => {
   }, [apiType]);
 
   return (
-    <div className="flex flex-1 flex-col w-full">
+    <div className="flex flex-1 flex-col w-full pb-6">
       <div className="grid gap-2 grid-cols-2">
         {PROVIDERS.map((provider) => {
           return (

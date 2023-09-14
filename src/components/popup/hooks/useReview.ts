@@ -9,6 +9,7 @@ interface ReviewResult {
   title: string;
   url: string;
   run: () => void;
+  isSending: boolean;
 }
 
 interface ReviewCache {
@@ -53,6 +54,7 @@ export const useReview = (): ReviewResult => {
 
   const [title, setTitle] = useState<string>('');
   const [url, setUrl] = useState<string>('');
+  const [isSending, setIsSending] = useState(false);
 
   useAsyncEffect(async () => {
     try {
@@ -68,6 +70,7 @@ export const useReview = (): ReviewResult => {
         }
       }
 
+      setIsSending(true);
       const result = await sendReviewRequest();
 
       setTitle(result?.title);
@@ -78,6 +81,8 @@ export const useReview = (): ReviewResult => {
         status: ReviewProcessStatus.Failed,
         message: e.message,
       });
+    } finally {
+      setIsSending(false);
     }
   }, []);
 
@@ -113,6 +118,9 @@ export const useReview = (): ReviewResult => {
    * Run the review process
    */
   const run = useCallback(async () => {
+    if (isSending) {
+      return;
+    }
     setMsg({
       status: ReviewProcessStatus.Running,
       message: '',
@@ -125,5 +133,6 @@ export const useReview = (): ReviewResult => {
     title,
     url,
     run,
+    isSending,
   };
 };

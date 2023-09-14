@@ -1,6 +1,7 @@
 import type { ReviewContext } from './Reviewer';
 import parseDiff from 'parse-diff';
 import { storageInstance } from './Storage';
+import { i18next } from '@/i18n/i18n';
 
 const REGEXP = /GIT\sbinary\spatch(.*)literal\s0/gims;
 
@@ -21,6 +22,14 @@ export class Prompt {
 
   async initialize() {
     this.customRules = await this.getCustomRules();
+
+    const lang = await this.getLanguage();
+
+    if (lang === Language.Chinese) {
+      await i18next.changeLanguage('zh');
+    } else {
+      await i18next.changeLanguage('en');
+    }
   }
 
   async setLanguage(language: Language) {
@@ -80,31 +89,22 @@ export class Prompt {
     const files = parseDiff(diff);
 
     promptArray.push(`
+Your task is to help me do a brief code review on it. Any bug risks and/or improvement suggestions are welcome, answer me with the following format:
+\`\`\`
+**File** - [filename]
+[Your review]
+\`\`\`
+
 The change has the following title: ${title}.
 
-Your task is:
-
-# Review the code changes and provide feedback.
-# If there are any bugs, highlight them.
-# Provide details on missed use of best-practices.
-# Does the code do what it says in the commit messages?
-# Provide security recommendations if there are any.
-
-${this.getCustomRulesPrompt()}
-
-Answer me with the following format:
-
-**File** - <file path>
- - Bugs to be fixed: <bug description>
- - To be improved: <improvement description>
-
-You are provided with the code changes (diffs) in a unidiff format.
-Do not provide feedback yet. I will follow-up with a description of the change in a new message.`);
-
-    promptArray.push(`
 A description was given to help you assist in understand why these changes were made.
-The description was provided in a markdown format. Do not provide feedback yet. I will follow-up with the code changes in diff format in a new message.
-${context.description}`);
+The description was provided in a markdown format.
+${context.description}
+
+You are provided with the code changes (diffs).
+
+Do not provide feedback yet! I will follow-up with the code changes in diff format in a new message.
+`);
 
     // Rebuild our patch as if it were different patches
     files.forEach(function (file) {
@@ -152,9 +152,13 @@ ${context.description}`);
       promptArray.push(part);
     });
 
-    promptArray.push(
-      `All code changes have been provided.Take a deep breath and think step by step, please provide me with your code review with language ${await this.getLanguage()} based on all the changes, context & title provided`,
-    );
+    promptArray.push(`
+All code changes have been provided.Take a deep breath and think step by step.
+Here are some rules to follow:
+${this.getCustomRulesPrompt()}
+
+Please provide me with your code review with language ${await this.getLanguage()} based on all the changes, context & title provided 
+`);
 
     return promptArray;
   }

@@ -2,6 +2,7 @@ import { promptInstance } from './Prompt';
 import { GPTInstance } from './GPT';
 import { Tab, Provider } from '@/@types/types';
 import { getProvider } from '@/lib/getProvider';
+import { i18next } from '@/i18n/i18n';
 
 export interface ReviewProcess {
   url?: string;
@@ -46,7 +47,7 @@ class Reviewer {
 
     if (provider === Provider.GitHub) {
       // The path towards the patch file of this change
-      const diffPathUrl = `https://patch-diff.githubusercontent.com/raw/${tokens[3]}/${tokens[4]}/pull/${tokens[6]}.patch`;
+      const diffPathUrl = `https://patch-diff.githubusercontent.com/raw/${tokens[3]}/${tokens[4]}/pull/${tokens[6]}.diff`;
 
       const diff = await this.requestPatchDiff(diffPathUrl);
 
@@ -73,7 +74,7 @@ class Reviewer {
 
     if (provider === Provider.GitLab) {
       // The path towards the patch file of this change
-      const diffPathUrl = tab.url + '.patch';
+      const diffPathUrl = tab.url + '.diff';
 
       const diff = await this.requestPatchDiff(diffPathUrl);
       // The description of the author of the change
@@ -117,7 +118,7 @@ class Reviewer {
     const result: ReviewProcess = {};
 
     if (!tab) {
-      throw Error('Get tab info failed');
+      throw Error(i18next.t('Get page info failed'));
     }
 
     result.url = tab.url;
@@ -126,7 +127,11 @@ class Reviewer {
     const provider = await getProvider(tab);
 
     if (provider === Provider.Unknown) {
-      throw Error('Unknown provider, only GitHub and GitLab are supported.');
+      throw Error(
+        i18next.t(
+          'Unknown page, only GitHub(pr) and GitLab(mr) are supported.',
+        ),
+      );
     }
 
     (async () => {
