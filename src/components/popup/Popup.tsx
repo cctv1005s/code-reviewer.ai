@@ -27,10 +27,20 @@ export const Popup = () => {
     setActiveTab(Pages.Setting);
   }, []);
 
-
   useEffect(() => {
-    getApiKey();
-  }, [activeTab]);
+    // Request when user set api key
+    if (
+      msg.status === ReviewProcessStatus.Failed &&
+      (msg.message.includes('Access token is invalid') ||
+        msg.message.includes('missing')) &&
+      apiKey &&
+      !isSending
+    ) {
+      run();
+    }
+
+    void getApiKey();
+  }, [activeTab, apiKey, msg, isSending]);
 
   if (activeTab === Pages.Setting) {
     return <Setting onGoBack={() => setActiveTab(Pages.Popup)} />;

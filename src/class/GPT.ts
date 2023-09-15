@@ -253,7 +253,7 @@ export class GPT extends EventEmitter {
           }
 
           try {
-            answer += response.answer;
+            answer += response.answer || '';
 
             this.emit(uniqKey, {
               status: ReviewProcessStatus.Completed,
@@ -290,15 +290,22 @@ export class GPT extends EventEmitter {
     // set uniq id
     this.runningInstance[uniqKey] = new Date().toString();
 
-    if (this.apiType === APIType.ChatGPT) {
-      return this.sendByChatGPT(uniqKey, messages);
-    }
+    try {
+      if (this.apiType === APIType.ChatGPT) {
+        return await this.sendByChatGPT(uniqKey, messages);
+      }
 
-    if (this.apiType === APIType.DIFY) {
-      return this.sendByDify(uniqKey, messages);
-    }
+      if (this.apiType === APIType.DIFY) {
+        return await this.sendByDify(uniqKey, messages);
+      }
 
-    throw Error('Unknown API type.');
+      throw Error('Unknown API type.');
+    } catch (e) {
+      this.emit(uniqKey, {
+        status: ReviewProcessStatus.Failed,
+        message: e.message,
+      });
+    }
   }
 }
 
