@@ -1,6 +1,6 @@
 import { promptInstance } from './Prompt';
 import { GPTInstance } from './GPT';
-import { Tab, Provider } from '@/@types/types';
+import { Provider, Tab } from '@/@types/types';
 import { getProvider } from '@/lib/getProvider';
 import { i18next } from '@/i18n/i18n';
 
@@ -70,6 +70,30 @@ class Reviewer {
       }
 
       return null;
+    }
+
+    if (provider === Provider.Gitee) {
+      // The path towards the patch file of this change
+      const diffPathUrl = tab.url + '.diff';
+
+      const diff = await this.requestPatchDiff(diffPathUrl);
+      // The description of the author of the change
+      // Fetch it by running a querySelector script specific to GitLab on the active tab
+      const contextExternalResult = (
+        await chrome.scripting.executeScript({
+          target: { tabId: tab.id, allFrames: true },
+          func: () => {
+            return document.querySelector('.js-pull-request-body').textContent;
+          },
+        })
+      )[0];
+
+      if ('result' in contextExternalResult) {
+        return {
+          description: contextExternalResult.result,
+          diff: diff,
+        };
+      }
     }
 
     if (provider === Provider.GitLab) {

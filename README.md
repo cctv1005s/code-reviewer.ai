@@ -13,6 +13,7 @@
 > A Chrome extension which reviews Pull Requests using [ChatGPT](https://chat.openai.com/) or [Dify](https://dify.ai/)
 
 - 💡 ChatGPT or [Dify](https://dify.ai/)
+- 📦 Support GitHub/GitLab/Gitee 
 - ⚡️ Support multiple languages
 - 🛠️ Configurable rules
 
