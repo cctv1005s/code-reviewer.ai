@@ -8,5 +8,9 @@ export interface Tab {
 export enum Provider {
   GitHub = 'github',
   GitLab = 'gitlab',
+  Gitee = 'gitee',
+  // TODO: support more Bitbucket & Codeup
+  Bitbucket = 'bitbucket',
+  Codeup = 'codeup',
   Unknown = 'unknown',
 }
